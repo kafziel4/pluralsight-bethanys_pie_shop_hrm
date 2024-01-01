@@ -1,0 +1,46 @@
+﻿@using BethanysPieShopHRM.Shared.Domain;
+
+@inherits TestContext
+
+@code {
+    private Employee _employee;
+
+    public EmployeeCardTests()
+    {
+        var jobCategory = new JobCategory { JobCategoryId = 3, JobCategoryName = "Management" };
+        var country = new Country { CountryId = 1, Name = "Belgium" };
+
+        _employee = new()
+        {
+            MaritalStatus = MaritalStatus.Single,
+            BirthDate = new DateTime(1989, 3, 11),
+            City = "Brussels",
+            Email = "bethany@bethanyspieshop.com",
+            EmployeeId = 1,
+            FirstName = "Bethany",
+            LastName = "Smith",
+            Gender = Gender.Female,
+            PhoneNumber = "324777888978978",
+            Smoker = false,
+            Street = "Grote Markt 1",
+            Zip = "1000",
+            JobCategory = jobCategory,
+            JobCategoryId = jobCategory.JobCategoryId,
+            Comment = "Lorem Ipsum",
+            ExitDate = null,
+            JoinedDate = new DateTime(2015, 3, 1),
+            Country = country,
+            CountryId = country.CountryId
+        };
+    }
+
+    [Fact]
+    public void RenderEmployeeCardDetailNavLink()
+    {
+        // Act
+        var cut = Render(@<EmployeeCard Employee="_employee"></EmployeeCard>);
+
+        // Assert
+        cut.Find("#detailnavlink").MarkupMatches(@"<a href=""employeeedit/1"" id=""detailnavlink"" class=""btn btn-outline-primary btn-sm mb-1"">Edit employee</a>");
+    }
+}

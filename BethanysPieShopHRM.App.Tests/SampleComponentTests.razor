@@ -1,0 +1,23 @@
+﻿@inherits TestContext
+
+@code {
+    [Fact]
+    public void RenderSampleComponentWithValueGreaterThanZero()
+    {
+        // Act
+        var cut = Render(@<SampleComponent MessageCount="3"></SampleComponent>);
+
+        // Assert
+        cut.MarkupMatches("<h3>Inbox</h3><h4>You currently have 3 questions from employees!</h4>");
+    }
+
+    [Fact]
+    public void RenderSampleComponentWithZero()
+    {
+        // Act
+        var cut = Render(@<SampleComponent MessageCount="0"></SampleComponent>);
+
+        // Assert
+        cut.MarkupMatches("<h3>Inbox</h3><h4>No questions from employees! All good!</h4>");
+    }
+}
